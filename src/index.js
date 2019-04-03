@@ -21,7 +21,7 @@ const getFiles = (parent, exts = ['.js', '.es6', '.es', '.jsx'], files = [], rec
     let child = r[i]
 
     const {name, ext} = _path.parse(child)
-    const file = path.concat(name)
+    const file = path.concat(child)
 
     // Check extension is of one of the aboves
     if (exts.includes(ext)) {
@@ -67,7 +67,12 @@ export default function dir (babel) {
 
         const nameTransform = state.opts.snakeCase ? toSnakeCase : toCamelCase
 
-        const _files = getFiles(checkPath, state.opts.exts, [], isRecursive)
+        let _files = getFiles(checkPath, state.opts.exts, [], isRecursive)
+
+        if (typeof state.opts.transformList === 'function') {
+          _files = state.opts.transformList(_files);
+        }
+
         const files = _files.map((file) =>
           [file, nameTransform(file[file.length - 1]), path.scope.generateUidIdentifier(file[file.length - 1])]
         )
@@ -77,7 +82,7 @@ export default function dir (babel) {
         const imports = files.map(([file, fileName, fileUid]) =>
           t.importDeclaration(
             [t.importNamespaceSpecifier(fileUid)],
-            t.stringLiteral(pathPrefix + _path.join(cleanedPath, ...file))
+            t.stringLiteral((sourcePath ? '' : pathPrefix) + _path.join(cleanedPath, ...file))
           )
         )
 
