@@ -14,20 +14,20 @@ const toCamelCase = (name) =>
 const toSnakeCase = (name) =>
   name.replace(/([-.A-Z])/g, (_, $1) => '_' + ($1 === '.' || $1 === '-' ? '' : $1.toLowerCase()))
 
-const getFiles = (parent, exts = ['.js', '.es6', '.es', '.jsx'], files = [], recursive = false, path = []) => {
+const getFiles = (parent, exts = ['.js', '.es6', '.es', '.jsx'], nostrip = false, files = [], recursive = false, path = []) => {
   let r = _fs.readdirSync(parent)
 
   for (let i = 0, l = r.length; i < l; i++) {
     let child = r[i]
 
     const {name, ext} = _path.parse(child)
-    const file = path.concat(child)
+    const file = path.concat(nostrip ? child : name)
 
     // Check extension is of one of the aboves
     if (exts.includes(ext)) {
       files.push(file)
     } else if (recursive && _fs.statSync(_path.join(parent, child)).isDirectory()) {
-      getFiles(_path.join(parent, name), exts, files, recursive, file)
+      getFiles(_path.join(parent, name), exts, nostrip, files, recursive, file)
     }
   }
 
@@ -67,10 +67,10 @@ export default function dir (babel) {
 
         const nameTransform = state.opts.snakeCase ? toSnakeCase : toCamelCase
 
-        let _files = getFiles(checkPath, state.opts.exts, [], isRecursive)
+        let _files = getFiles(checkPath, state.opts.exts, state.opts.nostrip, [], isRecursive)
 
-        if (typeof state.opts.transformList === 'function') {
-          _files = state.opts.transformList(_files);
+        if (typeof state.opts.listTransform === 'function') {
+          _files = state.opts.listTransform(_files);
         }
 
         const files = _files.map((file) =>
@@ -81,17 +81,19 @@ export default function dir (babel) {
 
         const imports = files.map(([file, fileName, fileUid]) =>
           t.importDeclaration(
-            [t.importNamespaceSpecifier(fileUid)],
+            node.specifiers.length ? [t.importNamespaceSpecifier(fileUid)] : [],
             t.stringLiteral((sourcePath ? '' : pathPrefix) + _path.join(cleanedPath, ...file))
           )
         )
 
         let dirVar = path.scope.generateUidIdentifier('dirImport')
-        path.insertBefore(t.variableDeclaration(
-          'const', [
-            t.variableDeclarator(dirVar, t.objectExpression([]))
-          ]
-        ))
+        if (node.specifiers.length) {
+          path.insertBefore(t.variableDeclaration(
+            'const', [
+              t.variableDeclarator(dirVar, t.objectExpression([]))
+            ]
+          ))
+        }
 
         for (let i = node.specifiers.length - 1; i >= 0; i--) {
           let dec = node.specifiers[i]
@@ -122,27 +124,29 @@ export default function dir (babel) {
           }
         }
 
-        if (isExplicitWildcard) {
-          files.forEach(([file, fileName, fileUid]) =>
-            path.insertAfter(buildRequire({
-              IMPORTED_NAME: t.stringLiteral(fileName),
-              DIR_IMPORT: dirVar,
-              IMPORTED: fileUid
-            }))
-          )
-        } else {
-          files.forEach(([file, fileName, fileUid]) =>
-            path.insertAfter(
-              t.assignmentExpression(
-                '=',
-                t.memberExpression(
-                  dirVar,
-                  t.identifier(fileName)
-                ),
-                fileUid
+        if (node.specifiers.length) {
+          if (isExplicitWildcard) {
+            files.forEach(([file, fileName, fileUid]) =>
+              path.insertAfter(buildRequire({
+                IMPORTED_NAME: t.stringLiteral(fileName),
+                DIR_IMPORT: dirVar,
+                IMPORTED: fileUid
+              }))
+            )
+          } else {
+            files.forEach(([file, fileName, fileUid]) =>
+              path.insertAfter(
+                t.assignmentExpression(
+                  '=',
+                  t.memberExpression(
+                    dirVar,
+                    t.identifier(fileName)
+                  ),
+                  fileUid
+                )
               )
             )
-          )
+          }
         }
 
         path.replaceWithMultiple(imports)

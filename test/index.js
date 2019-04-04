@@ -9,6 +9,14 @@ const transform = (code, opts = {}) =>
     plugins: [[plugin, opts]]
   }).code
 
+test('importing without specifiers', (t) => {
+  const orig = `import './test/fixtures/**';`
+
+  t.is(transform(orig), `import "./test/fixtures/c/fakeModuleD";
+import "./test/fixtures/fake-module-b";
+import "./test/fixtures/fake.module.a";`)
+})
+
 test('importing a module shouldn\'t do nothing', (t) => {
   const orig = `import x from 'fake-module';`
 
@@ -42,6 +50,26 @@ import * as _fakeModuleA from "./test/fixtures/fake.module.a";
 _dirImport.fakeModuleA = _fakeModuleA
 _dirImport.fakeModuleB = _fakeModuleB
 const x = _dirImport;`)
+})
+
+test('importing a existing directory without index file nostrip', (t) => {
+  const orig = `import x from './test/fixtures';`
+
+  t.is(transform(orig, { nostrip: true }), `const _dirImport = {};
+import * as _fakeModuleBJs from "./test/fixtures/fake-module-b.js";
+import * as _fakeModuleAJs from "./test/fixtures/fake.module.a.js";
+_dirImport.fakeModuleAJs = _fakeModuleAJs
+_dirImport.fakeModuleBJs = _fakeModuleBJs
+const x = _dirImport;`)
+})
+
+test('importing a existing directory without index file listTransform, sort by depth', (t) => {
+  const orig = `import './test/fixtures/**';`
+  const listTransform = (list) => list.sort((a, b) => (a.length - b.length));
+
+  t.is(transform(orig, { listTransform }), `import "./test/fixtures/fake-module-b";
+import "./test/fixtures/fake.module.a";
+import "./test/fixtures/c/fakeModuleD";`)
 })
 
 test('importing a existing directory without index file', (t) => {

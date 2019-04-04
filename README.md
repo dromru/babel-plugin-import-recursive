@@ -160,7 +160,7 @@ By default, the files with the following extensions: `["js", "es6", "es", "jsx"]
 ```json
 {
     "plugins": [
-        ["wildcard", {
+        ["import-directory", {
             "exts": ["js", "es6", "es", "jsx", "javascript"]
         }]
     ]
@@ -173,7 +173,7 @@ By default, the variables name would be in camelCase. You can change this using:
 ```json
 {
     "plugins": [
-        ["wildcard", {
+        ["import-directory", {
             "snakeCase": true
         }]
     ]
@@ -181,6 +181,31 @@ By default, the variables name would be in camelCase. You can change this using:
 ```
 ** result: `action_a`, `action_b` and `action_c` **
 
+### `nostrip`
+By default, the file extension will be removed in the generated import statements, you can change this using:
+
+```json
+{
+    "plugins": [
+        ["import-directory", {
+            "nostrip": true
+        }]
+    ]
+}
+```
+
+### `listTransform`
+Callback to transform the resolved file list
+
+```json
+{
+    "plugins": [
+        ["import-directory", {
+            "listTransform": true
+        }]
+    ]
+}
+```
 
 ## Scripts
 
