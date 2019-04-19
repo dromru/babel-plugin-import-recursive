@@ -1,5 +1,6 @@
 import '@babel/register'
 import * as babel from '@babel/core'
+import path from 'path';
 import test from 'ava'
 import plugin from '../src'
 
@@ -15,6 +16,15 @@ test('importing without specifiers', (t) => {
   t.is(transform(orig), `import "./test/fixtures/c/fakeModuleD";
 import "./test/fixtures/fake-module-b";
 import "./test/fixtures/fake.module.a";`)
+})
+
+test('importing the absolute path', (t) => {
+  const resolvedPath = path.resolve('./test/fixtures');
+  const orig = `import '${resolvedPath}/**';`
+
+  t.is(transform(orig), `import "${resolvedPath}/c/fakeModuleD";
+import "${resolvedPath}/fake-module-b";
+import "${resolvedPath}/fake.module.a";`)
 })
 
 test('importing a module shouldn\'t do nothing', (t) => {

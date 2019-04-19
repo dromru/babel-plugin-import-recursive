@@ -45,6 +45,7 @@ export default function dir (babel) {
 
         if (src[0] !== '.' && src[0] !== '/') { return }
         const pathPrefix = src.split('/')[0] + '/';
+        const isAbsolute = src[0] === '/';
 
         const isExplicitWildcard = wildcardRegex.test(src)
         let cleanedPath = src.replace(wildcardRegex, '')
@@ -53,7 +54,11 @@ export default function dir (babel) {
         cleanedPath = cleanedPath.replace(recursiveRegex, '')
 
         const sourcePath = this.file.opts.parserOpts.sourceFileName || this.file.opts.parserOpts.filename || ''
-        const checkPath = _path.resolve(_path.join(_path.dirname(sourcePath), cleanedPath))
+        const checkPath = _path.resolve(
+          isAbsolute
+            ? cleanedPath
+            : _path.join(_path.dirname(sourcePath), cleanedPath)
+        )
 
         try {
           require.resolve(checkPath)
@@ -82,7 +87,7 @@ export default function dir (babel) {
         const imports = files.map(([file, fileName, fileUid]) =>
           t.importDeclaration(
             node.specifiers.length ? [t.importNamespaceSpecifier(fileUid)] : [],
-            t.stringLiteral((sourcePath ? '' : pathPrefix) + _path.join(cleanedPath, ...file))
+            t.stringLiteral((sourcePath || isAbsolute ? '' : pathPrefix) + _path.join(cleanedPath, ...file))
           )
         )
 
