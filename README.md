@@ -1,40 +1,13 @@
-# babel-plugin-import-directory
-
-![npm](https://img.shields.io/npm/v/babel-plugin-import-directory.svg) ![license](https://img.shields.io/npm/l/babel-plugin-import-directory.svg) ![github-issues](https://img.shields.io/github/issues/Anmo/babel-plugin-import-directory.svg)
-
-Are you sick and tired of writing an `index.js` file, just to import/export all the other files in a directory?
-
-Don't seek more :)
-
-Just use `babel-plugin-import-directory` for that!
-
-![nodei.co](https://nodei.co/npm/babel-plugin-import-directory.png?downloads=true&downloadRank=true&stars=true)
-
-![travis-status](https://img.shields.io/travis/Anmo/babel-plugin-import-directory.svg)
-![stars](https://img.shields.io/github/stars/Anmo/babel-plugin-import-directory.svg)
-![forks](https://img.shields.io/github/forks/Anmo/babel-plugin-import-directory.svg)
-
-![](https://david-dm.org/Anmo/babel-plugin-import-directory/status.svg)
-![](https://david-dm.org/Anmo/babel-plugin-import-directory/dev-status.svg)
+# babel-import-recursive
 
 ## Installation
 
 ```sh
-$ npm i babel-plugin-import-directory
+$ npm install --save-dev babel-import-recursive
 ```
 or with `yarn`
 ```sh
-$ yarn babel-plugin-import-directory
-```
-
-Don't forget to save it in your project (use `--save-dev` or `-D` flag)
-
-```sh
-$ npm i -D babel-plugin-import-directory
-```
-or with `yarn`
-```sh
-$ yarn add -D babel-plugin-import-directory
+$ yarn add --dev babel-import-recursive
 ```
 
 ## Example
@@ -146,11 +119,9 @@ Just add it to your **.babelrc** file
 
 ```json
 {
-  "plugins": ["import-directory"]
+  "plugins": ["import-recursive"]
 }
 ```
-
-And don't write the `index.js` ;)
 
 ### Options
 
@@ -160,7 +131,7 @@ By default, the files with the following extensions: `["js", "es6", "es", "jsx"]
 ```json
 {
     "plugins": [
-        ["import-directory", {
+        ["import-recursive", {
             "exts": ["js", "es6", "es", "jsx", "javascript"]
         }]
     ]
@@ -173,7 +144,7 @@ By default, the variables name would be in camelCase. You can change this using:
 ```json
 {
     "plugins": [
-        ["import-directory", {
+        ["import-recursive", {
             "snakeCase": true
         }]
     ]
@@ -187,7 +158,7 @@ By default, the file extension will be removed in the generated import statement
 ```json
 {
     "plugins": [
-        ["import-directory", {
+        ["import-recursive", {
             "nostrip": true
         }]
     ]
@@ -200,43 +171,13 @@ Callback to transform the resolved file list
 ```json
 {
     "plugins": [
-        ["import-directory", {
+        ["import-recursive", {
             "listTransform": true
         }]
     ]
 }
 ```
 
-## Scripts
+---
 
- - **npm run readme** : `node-readme`
- - **npm run test** : `nyc ava`
- - **npm run test:watch** : `yarn test -- --watch`
- - **npm run report** : `nyc report --reporter=html`
- - **npm run build** : `babel -d ./lib ./src`
- - **npm run prepublish** : `babel -d ./lib ./src --minified`
-
-## Dependencies
-
-Package | Version | Dev
---- |:---:|:---:
-[babel-template](https://www.npmjs.com/package/babel-template) | ^6.26.0 | ✖
-[ava](https://www.npmjs.com/package/ava) | ^0.22.0 | ✔
-[babel](https://www.npmjs.com/package/babel) | ^6.5.2 | ✔
-[babel-cli](https://www.npmjs.com/package/babel-cli) | ^6.18.0 | ✔
-[babel-preset-es2015](https://www.npmjs.com/package/babel-preset-es2015) | ^6.18.0 | ✔
-[node-readme](https://www.npmjs.com/package/node-readme) | ^0.1.9 | ✔
-[nyc](https://www.npmjs.com/package/nyc) | ^11.2.1 | ✔
-
-
-## Contributing
-
-Contributions welcome; Please submit all pull requests the against master branch. If your pull request contains JavaScript patches or features, you should include relevant unit tests. Please check the [Contributing Guidelines](contributng.md) for more details. Thanks!
-
-## Author
-
-Anmo <btavares26@gmail.com>
-
-## License
-
- - **MIT** : http://opensource.org/licenses/MIT
+Forked from [babel-plugin-import-directory](https://github.com/Anmo/babel-plugin-import-directory) that was forked from [babel-plugin-wildcard](https://github.com/vihanb/babel-plugin-wildcard) 🦔
