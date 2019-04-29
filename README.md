@@ -184,16 +184,19 @@ By default, the file extension will be removed in the generated import statement
 ```
 
 ### `listTransform`
-Callback to transform the resolved file list
+Callback to transform the resolved file list. You should use `.babelrc.js` or `babel.config.js` to define the function.
+You can sort imported modules by depth, for example:
 
-```json
-{
-    "plugins": [
-        ["import-recursive", {
-            "listTransform": true
+```javascript
+module.exports = {
+    plugins: [
+        ['import-recursive', {
+            listTransform: function (a, b) {
+                return a.length - b.length;
+            },
         }]
     ]
-}
+};
 ```
 
 ---
