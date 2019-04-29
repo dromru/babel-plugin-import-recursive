@@ -1,5 +1,7 @@
 # babel-import-recursive
 
+A babel plugin that unrolls wildcard imports.
+
 ## Installation
 
 ```sh
