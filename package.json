@@ -5,8 +5,8 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "jest",
-    "build": "babel -d ./lib ./src",
-    "prepublish": "babel -d ./lib ./src --minified"
+    "build": "babel -d ./lib ./src --ignore ./src/test",
+    "prepublish": "babel -d ./lib ./src --ignore ./src/test --minified"
   },
   "dependencies": {
     "@babel/template": "^7.1.2"

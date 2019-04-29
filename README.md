@@ -61,6 +61,22 @@ const actions = _dirImport;
 
 ---
 
+And import without specifiers
+
+```javascript
+import './actions/**';
+```
+
+will be compiled to:
+
+```javascript
+import "./actions/action.a";
+import "./actions/action_b";
+import "./actions/sub_dir/actionC";
+```
+
+---
+
 You can also import all the methods directly, using a single `asterisk`.
 
 the following JS:
