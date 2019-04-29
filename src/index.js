@@ -14,7 +14,7 @@ const toCamelCase = (name) =>
 const toSnakeCase = (name) =>
   name.replace(/([-.A-Z])/g, (_, $1) => '_' + ($1 === '.' || $1 === '-' ? '' : $1.toLowerCase()))
 
-const getFiles = (parent, exts = ['.js', '.es6', '.es', '.jsx'], nostrip = false, files = [], recursive = false, path = []) => {
+const getFiles = (parent, exts = ['js', 'mjs', 'jsx'], nostrip = false, files = [], recursive = false, path = []) => {
   let r = _fs.readdirSync(parent)
 
   for (let i = 0, l = r.length; i < l; i++) {
@@ -24,7 +24,7 @@ const getFiles = (parent, exts = ['.js', '.es6', '.es', '.jsx'], nostrip = false
     const file = path.concat(nostrip ? child : name)
 
     // Check extension is of one of the aboves
-    if (exts.includes(ext)) {
+    if (exts.includes(ext && ext.length ? ext.slice(1, ext.length) : ext)) {
       files.push(file)
     } else if (recursive && _fs.statSync(_path.join(parent, child)).isDirectory()) {
       getFiles(_path.join(parent, name), exts, nostrip, files, recursive, file)
