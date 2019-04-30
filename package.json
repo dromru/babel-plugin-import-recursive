@@ -14,8 +14,10 @@
   ],
   "scripts": {
     "test": "jest",
-    "build": "babel -d ./lib ./src --ignore ./src/test",
-    "prepublish": "babel -d ./lib ./src --ignore ./src/test --minified"
+    "build": "rimraf lib && babel -d ./lib ./src --ignore ./src/test",
+    "prepublish": "rimraf lib && babel -d ./lib ./src --ignore ./src/test",
+    "lint": "eslint",
+    "prettify": "prettier"
   },
   "dependencies": {
     "@babel/template": "^7.1.2"
@@ -25,7 +27,21 @@
     "@babel/core": "^7.1.2",
     "@babel/preset-env": "^7.1.0",
     "@babel/register": "^7.0.0",
-    "jest": "^24.7.1"
+    "eslint": "5.16.0",
+    "eslint-config-airbnb-base": "13.1.0",
+    "eslint-config-prettier": "^4.2.0",
+    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-prettier": "^3.0.1",
+    "husky": "^2.1.0",
+    "jest": "^24.7.1",
+    "lint-staged": "^8.1.5",
+    "prettier": "^1.17.0",
+    "rimraf": "^2.6.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "repository": "https://github.com/dromru/babel-import-recursive.git",
   "author": "dromru",
