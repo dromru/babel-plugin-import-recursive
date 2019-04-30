@@ -27,7 +27,7 @@
     "@babel/register": "^7.0.0",
     "jest": "^24.7.1"
   },
-  "repository": "git@github.com:dromru/babel-import-recursive.git",
+  "repository": "https://github.com/dromru/babel-import-recursive.git",
   "author": "dromru",
   "license": "MIT"
 }
