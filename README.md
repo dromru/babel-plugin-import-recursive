@@ -144,13 +144,13 @@ Just add it to your **.babelrc** file
 ### Options
 
 ### `exts`
-By default, the files with the following extensions: `["js", "es6", "es", "jsx"]`, will be imported. You can change this using:
+By default, the files with the following extensions: `["js", "mjs", "jsx"]`, will be imported. You can change this using:
 
 ```json
 {
     "plugins": [
         ["import-recursive", {
-            "exts": ["js", "es6", "es", "jsx", "javascript"]
+            "exts": ["js", "mjs", "jsx"]
         }]
     ]
 }
