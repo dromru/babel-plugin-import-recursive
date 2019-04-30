@@ -1,4 +1,4 @@
-# babel-import-recursive [![CircleCI](https://circleci.com/gh/dromru/babel-import-recursive.svg?style=svg)](https://circleci.com/gh/dromru/babel-import-recursive) [![codecov](https://codecov.io/gh/dromru/babel-import-recursive/branch/master/graph/badge.svg)](https://codecov.io/gh/dromru/babel-import-recursive)
+# babel-import-recursive [![CircleCI](https://img.shields.io/circleci/project/github/dromru/babel-import-recursive/master.svg)](https://circleci.com/gh/dromru/babel-import-recursive) [![codecov](https://codecov.io/gh/dromru/babel-import-recursive/branch/master/graph/badge.svg)](https://codecov.io/gh/dromru/babel-import-recursive) [![npm](https://img.shields.io/npm/v/babel-import-recursive.svg)](https://www.npmjs.com/package/babel-import-recursive)
 
 A babel plugin that unrolls wildcard imports.
 
