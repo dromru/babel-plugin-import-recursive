@@ -1,8 +1,17 @@
 {
   "name": "babel-import-recursive",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A babel plugin that unrolls wildcard imports.",
   "main": "lib/index.js",
+  "files": [
+    "lib/index.js"
+  ],
+  "keywords": [
+    "babel",
+    "import",
+    "recursive",
+    "wildcard"
+  ],
   "scripts": {
     "test": "jest",
     "build": "babel -d ./lib ./src --ignore ./src/test",
