@@ -15,7 +15,7 @@
   "scripts": {
     "test": "jest",
     "build": "rimraf lib && babel -d ./lib ./src --ignore ./src/test",
-    "prepublish": "rimraf lib && babel -d ./lib ./src --ignore ./src/test",
+    "prepare": "rimraf lib && babel -d ./lib ./src --ignore ./src/test",
     "lint": "eslint",
     "prettify": "prettier"
   },
