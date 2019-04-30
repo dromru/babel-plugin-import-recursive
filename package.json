@@ -1,5 +1,5 @@
 {
-  "name": "babel-import-recursive",
+  "name": "babel-plugin-import-recursive",
   "version": "1.1.2",
   "description": "A babel plugin that unrolls wildcard imports.",
   "main": "lib/index.js",
@@ -43,7 +43,7 @@
       "pre-commit": "lint-staged"
     }
   },
-  "repository": "https://github.com/dromru/babel-import-recursive.git",
+  "repository": "https://github.com/dromru/babel-plugin-import-recursive.git",
   "author": "dromru",
   "license": "MIT"
 }
