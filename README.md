@@ -168,7 +168,7 @@ By default, the variables name would be in camelCase. You can change this using:
     ]
 }
 ```
-** result: `action_a`, `action_b` and `action_c` **
+**result: `action_a`, `action_b` and `action_c`**
 
 ### `nostrip`
 By default, the file extension will be removed in the generated import statements, you can change this using:
