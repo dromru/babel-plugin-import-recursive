@@ -10,6 +10,7 @@ orbs:
 
 jobs:
   build-test:
+    <<: *defaults
     steps:
       - checkout
 
