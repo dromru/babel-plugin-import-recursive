@@ -1,48 +1,68 @@
-# Javascript Node CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-javascript/ for more details
-#
 version: 2.1
+
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+    - image: circleci/node:lts
+
 orbs:
-  codecov: codecov/codecov@1.0.4
+  codecov: codecov/codecov@1.0.5
+
 jobs:
-  build:
-    docker:
-      # specify the version you desire here
-      - image: circleci/node:lts
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mongo:3.4.4
-
-    working_directory: ~/repo
-
+  build-test:
     steps:
       - checkout
 
-      # Download and cache dependencies
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
       - run: yarn install
+
+      - run:
+          name: "Build js artifacts"
+          command: yarn build
+
+      - run:
+          name: "Run tests and collect coverage report"
+          command: yarn test --bail --ci --coverage
+
+      - codecov/upload:
+          file: coverage/*.json
+          conf: codecov.yml
 
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run:
-          name: "Build js artifacts"
-          command: yarn build
-      # run tests!
-      - run:
-          name: "Run tests and collect coverage report"
-          command: yarn test --collectCoverage=true
+      - persist_to_workspace:
+          root: ~/repo
+          paths: .
 
-      - codecov/upload:
-          file: coverage/*.json
-          conf: codecov.yml
+  deploy:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Publish package
+          command: YARN_AUTH_TOKEN=$NPM_TOKEN yarn publish --non-interactive
+
+workflows:
+  version: 2
+  build-test-deploy:
+    jobs:
+      - build-test:
+          filters:
+            tags:
+              only: /^v.*/
+      - deploy:
+          requires:
+            - build-test
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
