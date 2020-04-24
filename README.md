@@ -1,6 +1,6 @@
 # babel-plugin-import-recursive
 
-[![CircleCI](https://circleci.com/gh/dromru/babel-plugin-import-recursive.svg?style=svg)](https://circleci.com/gh/dromru/babel-plugin-import-recursive) [![codecov](https://codecov.io/gh/dromru/babel-plugin-import-recursive/branch/master/graph/badge.svg)](https://codecov.io/gh/dromru/babel-plugin-import-recursive) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/319e8d44049d42a88a1acaf3771cd6e6)](https://www.codacy.com/app/irudoy/babel-plugin-import-recursive) [![Greenkeeper badge](https://badges.greenkeeper.io/dromru/babel-plugin-import-recursive.svg)](https://greenkeeper.io/) [![npm](https://img.shields.io/npm/v/babel-plugin-import-recursive.svg)](https://www.npmjs.com/package/babel-plugin-import-recursive)
+[![CircleCI](https://circleci.com/gh/dromru/babel-plugin-import-recursive.svg?style=svg)](https://circleci.com/gh/dromru/babel-plugin-import-recursive) [![codecov](https://codecov.io/gh/dromru/babel-plugin-import-recursive/branch/master/graph/badge.svg)](https://codecov.io/gh/dromru/babel-plugin-import-recursive) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/319e8d44049d42a88a1acaf3771cd6e6)](https://www.codacy.com/app/irudoy/babel-plugin-import-recursive)  [![npm](https://img.shields.io/npm/v/babel-plugin-import-recursive.svg)](https://www.npmjs.com/package/babel-plugin-import-recursive)
 
 A babel plugin that unrolls wildcard imports.
 
