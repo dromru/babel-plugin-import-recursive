@@ -20,7 +20,7 @@
     "prettify": "prettier"
   },
   "dependencies": {
-    "@babel/template": "^7.4.4"
+    "@babel/template": "^7.8.6"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
