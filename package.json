@@ -15,9 +15,10 @@
   "scripts": {
     "test": "jest",
     "build": "rimraf lib && babel -d ./lib ./src --ignore ./src/test",
-    "prepare": "rimraf lib && babel -d ./lib ./src --ignore ./src/test",
+    "prepare": "yarn run snyk-protect && rimraf lib && babel -d ./lib ./src --ignore ./src/test",
     "lint": "eslint",
-    "prettify": "prettier"
+    "prettify": "prettier",
+    "snyk-protect": "snyk protect"
   },
   "dependencies": {
     "@babel/template": "^7.8.6"
@@ -36,7 +37,8 @@
     "jest": "^24.7.1",
     "lint-staged": "^9.2.1",
     "prettier": "^1.17.0",
-    "rimraf": "^3.0.0"
+    "rimraf": "^3.0.0",
+    "snyk": "^1.316.1"
   },
   "husky": {
     "hooks": {
@@ -45,5 +47,6 @@
   },
   "repository": "https://github.com/dromru/babel-plugin-import-recursive.git",
   "author": "dromru",
-  "license": "MIT"
+  "license": "MIT",
+  "snyk": true
 }
