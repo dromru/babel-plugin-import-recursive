@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.11.5",
-    "@babel/core": "^7.11.4",
+    "@babel/core": "^7.11.5",
     "@babel/preset-env": "^7.11.5",
     "@babel/register": "^7.10.5",
     "eslint": "7.8.1",
