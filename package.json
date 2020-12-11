@@ -23,7 +23,7 @@
     "@babel/template": "^7.10.4"
   },
   "devDependencies": {
-    "@babel/cli": "^7.11.6",
+    "@babel/cli": "^7.12.10",
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.10",
     "@babel/register": "^7.12.10",
