@@ -1,8 +1,10 @@
 {
   "extends": [
-    "config:base",
-    ":preserveSemverRanges"
+    "config:base"
   ],
+  "dependencyDashboard": true,
+  "stabilityDays": 3,
+  "rebaseWhen": "conflicted",
   "packageRules": [
     {
       "matchPackagePatterns": ["eslint"],
