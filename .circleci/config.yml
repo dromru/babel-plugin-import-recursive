@@ -31,7 +31,6 @@ jobs:
 
       - codecov/upload:
           file: coverage/*.json
-          conf: codecov.yml
 
       - save_cache:
           paths:
