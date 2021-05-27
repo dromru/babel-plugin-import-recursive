@@ -6,7 +6,7 @@ defaults: &defaults
     - image: circleci/node:lts
 
 orbs:
-  codecov: codecov/codecov@1.2.0
+  codecov: codecov/codecov@1.2.3
 
 jobs:
   build-test:
